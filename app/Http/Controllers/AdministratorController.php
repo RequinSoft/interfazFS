@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 class AdministratorController extends Controller
 {
     public function indexAsistencia(){
-return 'Asistencia Hik';
+        $ruta = '';
+
+        return view('admin.index', compact('ruta'));
     }
 
     public function indexFS(){
