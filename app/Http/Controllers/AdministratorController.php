@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 
 class AdministratorController extends Controller
 {
-    public function indexAsistencia(){
+    public function index(){
         $ruta = '';
 
         return view('admin.index', compact('ruta'));
     }
 
-    public function indexFS(){
-return 'Lista FS';
+    public function assistanceHik(){
+        return 'Lista Hik';
+    }
+
+    public function assistanceFS(){
+        return 'Lista FS';
     }
 }

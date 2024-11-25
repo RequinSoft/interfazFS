@@ -18,9 +18,12 @@ Route::controller(LoginController::class)
 
 Route::controller(AdministratorController::class)
     ->group(function(){
-        Route::get('/indexAsistencia','indexAsistencia')
-            ->name('indexAsistencia');
+        Route::get('/index','index')
+            ->name('index');
         
-        Route::get('/indexFS','indexFS')
-            ->name('indexFS'); 
+        Route::get('/assistanceHik','assistanceHik')
+            ->name('assistanceHik'); 
+        
+        Route::get('/assistanceFS','assistanceFS')
+            ->name('assistanceFS'); 
 });

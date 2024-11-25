@@ -10,8 +10,9 @@ use App\Models\User;
 class LoginController extends Controller
 {
     public function index(){
+        $ruta = '';
 
-        return view('welcome');
+        return view('welcome', compact('ruta'));
     }
 
     public function login(Request $request){
@@ -42,7 +43,7 @@ class LoginController extends Controller
                 'message' => 'El Usuario y/o la Contraseña son incorrectos',
             ]);
         }else{
-            return redirect()->route('indexAsistencia');
+            return redirect()->route('index');
         }
     }
 

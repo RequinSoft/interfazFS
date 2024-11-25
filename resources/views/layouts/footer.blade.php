@@ -1,64 +1,48 @@
 
+</div>
+<!-- End of Page Wrapper -->
 
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2021</p>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
             </div>
         </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
+</div>
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="{{$ruta}}../resources/vendor/global/global.min.js"></script>
-    <script src="{{$ruta}}../resources/js/quixnav-init.js"></script>
-    <script src="{{$ruta}}../resources/js/custom.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Vectormap -->
-    <script src="{{$ruta}}../resources/vendor/raphael/raphael.min.js"></script>
-    <script src="{{$ruta}}../resources/vendor/morris/morris.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
 
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
 
-    <script src="{{$ruta}}../resources/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="{{$ruta}}../resources/vendor/chart.js/Chart.bundle.min.js"></script>
-
-    <script src="{{$ruta}}../resources/vendor/gaugeJS/dist/gauge.min.js"></script>
-
-    <!--  flot-chart js -->
-    <script src="{{$ruta}}../resources/vendor/flot/jquery.flot.js"></script>
-    <script src="{{$ruta}}../resources/vendor/flot/jquery.flot.resize.js"></script>
-
-    <!-- Owl Carousel -->
-    <script src="{{$ruta}}../resources/vendor/owl-carousel/js/owl.carousel.min.js"></script>
-
-    <!-- Counter Up -->
-    <script src="{{$ruta}}../resources/vendor/jqvmap/js/jquery.vmap.min.js"></script>
-    <script src="{{$ruta}}../resources/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-    <script src="{{$ruta}}../resources/vendor/jquery.counterup/jquery.counterup.min.js"></script>
-
-
-    <script src="{{$ruta}}../resources/js/dashboard/dashboard-1.js"></script>
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
