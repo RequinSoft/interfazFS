@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'fatigue' => [
+        'client_id' => env('FS_CLIENT_ID'),
+        'client_secret' => env('FS_CLIENT_SECRET'),
+        'redirect' => 'https://df92-200-94-63-194.ngrok-free.app/callback',
+    ],
+
 ];

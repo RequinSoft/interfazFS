@@ -7,13 +7,13 @@ use App\Http\Controllers\AdministratorController;
 Route::controller(LoginController::class)
     ->group(function(){
         Route::get('/','index')
-            ->name('index');
+            ->name('home');
         
         Route::post('/login','login')
             ->name('login');
         
         Route::get('/destroy','destroy')
-            ->name('destroy');  
+            ->name('logout');  
 });
 
 Route::controller(AdministratorController::class)
