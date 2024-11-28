@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdministratorController;
 
@@ -17,6 +18,7 @@ Route::controller(LoginController::class)
 });
 
 Route::controller(AdministratorController::class)
+    ->middleware('SessionExpired')
     ->group(function(){
         Route::get('/index','index')
             ->name('index');
