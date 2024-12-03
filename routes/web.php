@@ -27,5 +27,17 @@ Route::controller(AdministratorController::class)
             ->name('assistanceHik'); 
         
         Route::get('/assistanceFS','assistanceFS')
-            ->name('assistanceFS'); 
+            ->name('assistanceFS');
+        
+        Route::get('/getDataFS','getDataFS')
+            ->name('getDataFS'); 
+    
+        Route::get('/FSData','fsdata')
+            ->name('fsdata'); 
+    
+        Route::get('/FSDataEdit','fsdata_edit')
+            ->name('fsdata-edit'); 
+    
+        Route::post('/FSSave','update')
+            ->name('fsupdate'); 
 });

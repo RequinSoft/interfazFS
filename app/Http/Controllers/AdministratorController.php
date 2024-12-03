@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Http;
 use App\Models\Assistance;
 use App\Models\ReadHik;
+use App\Models\Fsdata;
 
 class AdministratorController extends Controller
 {
@@ -50,10 +51,75 @@ class AdministratorController extends Controller
     }
 
     public function assistanceFS(){
+        $ruta = '';
+        $user = Auth::user();
         $fecha = Carbon::now();
-        $dia = $fecha->format('Y-m-d');
+        $hora = $fecha->format('H:i:s');
+        $url = 'https://app.fatiguescience.com/readi_api/v1/users';
+        $token = Fsdata::find(1);
 
-        return Socialite::driver('fatigue')->redirect();
+
+        if($hora >= '00:00:00' && $hora < '07:00:00'){
+            $fecha->subDay(1);
+            $dia = $fecha->format('Y-m-d');
+        }else{
+            $dia = $fecha->format('Y-m-d');
+        }
+
+        $queryUsers = Http::withToken($token->access_token)->get($url);
+        $responseUsers = $queryUsers['data'];
+        //return $responseUsers;
+
+        return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
+    }
+
+    public function getDataFS(){
+        $fecha = Carbon::now();
+
+        $dataFS = Fsdata::find(1);
+
+        if(!isset($dataFS->username) || !isset($dataFS->password)){
+            return back()->withErrors([
+                'message' => 'Usuario y Contraseña son obligatorios',
+            ]);
+        }
+
+        if(isset($dataFS->access_token)){
+            $dataToGetToken = [
+                "username" => $dataFS->username,
+                "password" => $dataFS->password,
+                "grant_type" => 'refresh_token',
+                "refresh_token" => $dataFS->refresh_token
+            ];
+            $responseDataToken = Http::post('https://app.fatiguescience.com/oauth/token', $dataToGetToken);
+            
+            $updateFSData = Fsdata::query()->where('id', 1)->update([
+                'access_token' => $responseDataToken['access_token'],
+                'token_type' => $responseDataToken['token_type'],
+                'expires_in' => $responseDataToken['expires_in'],
+                'refresh_token' => $responseDataToken['refresh_token'],
+                'created' => $responseDataToken['created_at'],
+                'first_login' => $responseDataToken['first_login'],
+            ]);
+        }else{
+            $dataToGetToken = [
+                "username" => $dataFS->username,
+                "password" => $dataFS->password,
+                "grant_type" => $dataFS->grand_type
+            ];
+            $responseDataToken = Http::post('https://app.fatiguescience.com/oauth/token', $dataToGetToken);
+            
+            $updateFSData = Fsdata::query()->where('id', 1)->update([
+                'access_token' => $responseDataToken['access_token'],
+                'token_type' => $responseDataToken['token_type'],
+                'expires_in' => $responseDataToken['expires_in'],
+                'refresh_token' => $responseDataToken['refresh_token'],
+                'created' => $responseDataToken['created_at'],
+                'first_login' => $responseDataToken['first_login'],
+            ]);
+        }
+
+        return redirect()->route('fsdata');
     }
 
     public function syncAssistance(){
@@ -93,5 +159,50 @@ class AdministratorController extends Controller
         }
         
         return redirect()->route('index');
+    }
+
+    public function fsdata(){
+        $ruta = '';
+        $user = Auth::user();
+        $fecha = Carbon::now();
+        $hora = $fecha->format('H:i:s');
+        $hoy = $fecha->valueOf();
+
+        $fsdata = Fsdata::find(1);
+
+        return view('admin.fsdata', compact('ruta', 'fsdata', 'user', 'hoy'));
+    }
+
+    public function fsdata_edit(){
+        $ruta = '';
+        $user = Auth::user();
+        $fecha = Carbon::now();
+        $hora = $fecha->format('H:i:s');
+
+        $fsdata = FsData::find(1);
+
+        return view('admin.fsdata-edit', compact('ruta', 'fsdata', 'user'));
+    }
+
+    public function update(Request $request){
+        //Reglas de los campos 
+        $validated = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ],
+        [
+            'username.required' => 'El email es obligatorio',
+            'password.required' => 'La contraseña es obligatoria',
+        ]); 
+        $fsdata = Fsdata::updateOrCreate(
+            ['id' => 1],
+            [
+                'username' => $request->username,
+                'password' => $request->password,
+                'grand_type' => 'password'
+            ]
+        );
+
+        return redirect()->route('fsdata');
     }
 }
