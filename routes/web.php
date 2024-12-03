@@ -22,6 +22,12 @@ Route::controller(AdministratorController::class)
     ->group(function(){
         Route::get('/index','index')
             ->name('index');
+
+        Route::get('/locations','locations')
+            ->name('locations');
+
+        Route::get('/fsusers','fsusers')
+            ->name('fsusers');
         
         Route::get('/assistanceHik','assistanceHik')
             ->name('assistanceHik'); 

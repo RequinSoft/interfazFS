@@ -5,4 +5,5 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 
+Schedule::command('app:locations-command')->daily();
 Schedule::command('app:asistencia-command')->EveryMinute();

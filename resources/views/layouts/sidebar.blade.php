@@ -52,6 +52,8 @@
         <div id="collapseConf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('fsdata')}}">FS Data</a>
+                <a class="collapse-item" href="{{route('locations')}}">FS Locations</a>
+                <a class="collapse-item" href="{{route('fsusers')}}">FS Usuarios</a>
             </div>
         </div>
     </li>

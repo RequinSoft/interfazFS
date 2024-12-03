@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Assistance;
 use App\Models\ReadHik;
 use App\Models\Fsdata;
+use App\Models\Locations;
 
 class AdministratorController extends Controller
 {
@@ -51,26 +52,35 @@ class AdministratorController extends Controller
     }
 
     public function assistanceFS(){
-        $ruta = '';
         $user = Auth::user();
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
-        $url = 'https://app.fatiguescience.com/readi_api/v1/users';
+        $url = 'https://app.fatiguescience.com/readi_api/v1/';
         $token = Fsdata::find(1);
+        $user = [];
 
+        $queryLocations = Http::withToken($token->access_token)->get($url.'locations');
+        $responseLocations = $queryLocations['data'];
+        //return $responseLocations;
 
-        if($hora >= '00:00:00' && $hora < '07:00:00'){
-            $fecha->subDay(1);
-            $dia = $fecha->format('Y-m-d');
-        }else{
-            $dia = $fecha->format('Y-m-d');
+        foreach($responseLocations as $locations){
+            //print($locations['id']);
+            $queryUsers = Http::withToken($token->access_token)->get($url.'users?location_id='.$locations['id']);
+            $responseUsers = $queryUsers['data'];
+            $users = $responseUsers;
         }
 
-        $queryUsers = Http::withToken($token->access_token)->get($url);
-        $responseUsers = $queryUsers['data'];
-        //return $responseUsers;
+        return $users;
+        //return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
+    }
 
-        return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
+    public function locations(){
+        $ruta = '';
+        $user = Auth::user();
+
+        $locations = Locations::query()->where('id_fs', '<>', 3226)->orderBy('name', 'asc')->get();
+
+        return view('admin.locations', compact('ruta', 'user', 'locations'));
     }
 
     public function getDataFS(){
@@ -108,7 +118,7 @@ class AdministratorController extends Controller
                 "grant_type" => $dataFS->grand_type
             ];
             $responseDataToken = Http::post('https://app.fatiguescience.com/oauth/token', $dataToGetToken);
-            
+            //return $responseDataToken;
             $updateFSData = Fsdata::query()->where('id', 1)->update([
                 'access_token' => $responseDataToken['access_token'],
                 'token_type' => $responseDataToken['token_type'],
