@@ -32,12 +32,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-user"></i>
-            <span>Asistencias</span>
+            <span>Datos</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('assistanceHik')}}">Hik</a>
-                <a class="collapse-item" href="{{route('assistanceFS')}}">FS</a>
+                <a class="collapse-item" href="{{route('assistanceHik')}}">Asistencia</a>
+                <a class="collapse-item" href="{{route('assistanceFS')}}">FS Personas</a>
+                <a class="collapse-item" href="{{route('locations')}}">FS Locations</a>
             </div>
         </div>
     </li>
@@ -52,8 +53,7 @@
         <div id="collapseConf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('fsdata')}}">FS Data</a>
-                <a class="collapse-item" href="{{route('locations')}}">FS Locations</a>
-                <a class="collapse-item" href="{{route('fsusers')}}">FS Usuarios</a>
+                <a class="collapse-item" href="{{route('users')}}">Usuarios</a>
             </div>
         </div>
     </li>

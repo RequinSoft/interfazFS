@@ -19,6 +19,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th class="text-center">N°</th>
                                 <th>Nombre</th>
                                 <th>Id FS</th>
                             </tr>
@@ -26,6 +27,7 @@
                         <tbody>
                             @foreach ($locations as $locations)
                                 <tr>
+                                    <td class="text-center">{{$locations->id}}</td>
                                     <td>{{$locations->name}}</td>
                                     <td>{{$locations->id_fs}}</td>
                                 </tr>

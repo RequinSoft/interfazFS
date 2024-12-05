@@ -23,11 +23,11 @@ Route::controller(AdministratorController::class)
         Route::get('/index','index')
             ->name('index');
 
+        Route::get('/users','users')
+            ->name('users');
+
         Route::get('/locations','locations')
             ->name('locations');
-
-        Route::get('/fsusers','fsusers')
-            ->name('fsusers');
         
         Route::get('/assistanceHik','assistanceHik')
             ->name('assistanceHik'); 
@@ -44,6 +44,6 @@ Route::controller(AdministratorController::class)
         Route::get('/FSDataEdit','fsdata_edit')
             ->name('fsdata-edit'); 
     
-        Route::post('/FSSave','update')
-            ->name('fsupdate'); 
+        Route::post('/FSDataUpdate','fsdata_update')
+            ->name('fsdata-update'); 
 });

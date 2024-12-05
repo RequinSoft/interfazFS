@@ -6,4 +6,5 @@ use Illuminate\Support\Facades\Schedule;
 
 
 Schedule::command('app:locations-command')->daily();
+Schedule::command('app:users-command')->daily();
 Schedule::command('app:asistencia-command')->EveryMinute();

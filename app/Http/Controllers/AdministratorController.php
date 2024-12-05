@@ -10,6 +10,7 @@ use App\Models\Assistance;
 use App\Models\ReadHik;
 use App\Models\Fsdata;
 use App\Models\Locations;
+use App\Models\Personal;
 
 class AdministratorController extends Controller
 {
@@ -52,26 +53,19 @@ class AdministratorController extends Controller
     }
 
     public function assistanceFS(){
+        $ruta = '';
         $user = Auth::user();
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
-        $url = 'https://app.fatiguescience.com/readi_api/v1/';
-        $token = Fsdata::find(1);
-        $user = [];
+        
+        $responseUsers = Personal::all();
 
-        $queryLocations = Http::withToken($token->access_token)->get($url.'locations');
-        $responseLocations = $queryLocations['data'];
-        //return $responseLocations;
+        //return $responseUsers;
+        return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
+    }
 
-        foreach($responseLocations as $locations){
-            //print($locations['id']);
-            $queryUsers = Http::withToken($token->access_token)->get($url.'users?location_id='.$locations['id']);
-            $responseUsers = $queryUsers['data'];
-            $users = $responseUsers;
-        }
+    public function users(){
 
-        return $users;
-        //return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
     }
 
     public function locations(){
@@ -194,7 +188,7 @@ class AdministratorController extends Controller
         return view('admin.fsdata-edit', compact('ruta', 'fsdata', 'user'));
     }
 
-    public function update(Request $request){
+    public function fsdata_update(Request $request){
         //Reglas de los campos 
         $validated = $request->validate([
             'username' => 'required',

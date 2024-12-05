@@ -30,9 +30,6 @@ class LocationsCommand extends Command
      */
     public function handle()
     {        
-        $user = Auth::user();
-        $fecha = Carbon::now();
-        $hora = $fecha->format('H:i:s');
         $url = 'https://app.fatiguescience.com/readi_api/v1/locations';
         $token = Fsdata::find(1);
         $locationsOnFS = [];
@@ -52,14 +49,18 @@ class LocationsCommand extends Command
                     'id_fs' => $locations['id'],
                     'name' => $locations['attributes']['name']
                 ]);
+
+                //print('Se crea nuevo grupo '.$locations['attributes']['name']);
             }else{
                 $locationOnDB = Locations::query()->where('id_fs', $locations['id'])->get();
 
                 if($locations['attributes']['name'] != $locationOnDB[0]->name){
+                    
                     $locations = Locations::query()->where('id_fs', $locations['id'])->update([
                         'id_fs' => $locations['id'],
                         'name' => $locations['attributes']['name']
                     ]);
+
                 }
 
             }
@@ -67,11 +68,17 @@ class LocationsCommand extends Command
             
         }
 
-        $locationsOnDB =  Locations::query()->where('id_fs', '<>', 3226)->orderBy('name', 'asc')->get()->pluck('id_fs')->toArray();
+        $locationsOnDB = Locations::query()->where('id_fs', '<>', 3226)->orderBy('name', 'asc')->get()->pluck('id_fs', 'name')->toArray();
 
         foreach($locationsOnDB as $onDB){
+            //print('Borrar '.$onDB.'     ');
             if(!in_array($onDB, $locationsOnFS)){
-                print('Si existe');
+
+                $getIdLocation = Locations::query()->where('id_fs', $onDB)->get();
+                //print($getIdLocation[0]->id);
+                
+                $locations = Locations::find($getIdLocation[0]->id)->delete();
+                //print('Borrar '.$onDB);
             }
         }
     }
