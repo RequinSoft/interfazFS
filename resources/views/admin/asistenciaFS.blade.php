@@ -34,8 +34,24 @@
                                     <td>{{$asis->name}}</td>
                                     <td>{{$asis->identifier}}</td>
                                     <td>{{$asis->email}}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td class="text-center">
+                                        @if (isset($asis->exist_fs))
+                                            @if ($asis->exist_fs->exist_fs == 1)
+                                                Sí
+                                            @else
+                                                No
+                                            @endif                                            
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if (isset($asis->exist_fs))
+                                            @if ($asis->exist_fs->sync == 1)
+                                                Sí
+                                            @else
+                                                No
+                                            @endif                                            
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

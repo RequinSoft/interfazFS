@@ -28,8 +28,9 @@ class AdministratorController extends Controller
         }
 
         $contarHik = Assistance::query()->where('date', $dia)->distinct('ID')->count();
+        $contarFS = Personal::all()->count();
 
-        return view('admin.index', compact('ruta', 'user', 'contarHik'));
+        return view('admin.index', compact('ruta', 'user', 'contarHik', 'contarFS'));
     }
 
     public function assistanceHik(){
@@ -58,7 +59,7 @@ class AdministratorController extends Controller
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
         
-        $responseUsers = Personal::all();
+        $responseUsers = Personal::with('exist_fs')->get();
 
         //return $responseUsers;
         return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
