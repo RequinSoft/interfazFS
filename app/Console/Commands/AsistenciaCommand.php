@@ -28,8 +28,6 @@ class AsistenciaCommand extends Command
      */
     public function handle()
     {
-        
-
         $fecha = Carbon::now();
 
         //$hora_actual = $fecha->format('H:i:s');
