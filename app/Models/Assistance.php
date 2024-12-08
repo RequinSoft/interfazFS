@@ -22,4 +22,9 @@ class Assistance extends Model
         'exist_fs',
         'sync',
     ];
+
+    public function sync_data(){
+
+        return $this->belongsTo(Personal::class, 'id_hik', 'identifier');
+    }
 }

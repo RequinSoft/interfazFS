@@ -31,19 +31,23 @@ class AsistenciaHikFsCommand extends Command
         $fecha = Carbon::now();
         $dia = $fecha->format('Y-m-d');
 
-        $usersFS = Personal::with('exist_fs')->where('identifier', 'MAGJ790907974')->get();
-        print($usersFS);
+        $usersFS = Personal::with('exist_fs')->get();
+        //print($usersFS[0]->exist_fs);
 
-        if (isset($usersFS->exist_fs)){
+        foreach($usersFS as $usersFS){
 
-            print('Existe');
-            if ($usersFS->exist_fs->exist_fs == 0){
-
-                print('Actualizó');
-                $updateAssistance = Assistance::query()->where('id_hik', $usersFS->identifier)->where('date', $dia)->update([
-                    'exist_fs' => 1
-                ]);
+            if (isset($usersFS->exist_fs)){
+    
+                //print('Existe');
+                if ($usersFS->exist_fs->exist_fs == 0){
+    
+                    //print('Actualizó');
+                    $updateAssistance = Assistance::query()->where('id_hik', $usersFS->identifier)->where('date', $dia)->update([
+                        'exist_fs' => 1
+                    ]);
+                }
             }
         }
+
     }
 }
