@@ -30,7 +30,7 @@
                         <tbody>
                             @foreach ($responseUsers as $asis)
                                 <tr>
-                                    <td>{{$asis->id}}</td>
+                                    <td>{{$asis->id_fs}}</td>
                                     <td>{{$asis->name}}</td>
                                     <td>{{$asis->identifier}}</td>
                                     <td>{{$asis->email}}</td>

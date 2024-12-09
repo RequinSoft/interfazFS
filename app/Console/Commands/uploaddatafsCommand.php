@@ -36,20 +36,21 @@ class uploaddatafsCommand extends Command
         $dataUpload = [];
         $datos = [];
 
-        $asistencia = Assistance::with('sync_data')->where('exist_fs', 1)->where('sync', 0)->where('date', $dia)->get();
+        $asistencia = Assistance::with('sync_data')->where('exist_fs', 1)->where('sync', 0)->where('date', $dia)->where('id_hik', 'MAGJ790907974')->get();
         
         $url = 'https://app.fatiguescience.com/readi_api/v1/attendance_times';
         $token = Fsdata::find(1);
-        print($token->access_token);
+        //print($token->access_token);
 
         foreach($asistencia as $asistencia){
             
             $date = Carbon::createFromFormat('Y-m-d H:i:s', $asistencia->datetime, 'America/Mexico_City');
             $date->setTimezone('UTC');
-
+            
             $attibutes = [
                 'start_time' => $date,
                 'end_time' => '',
+                'label' => 'system',
             ];
 
             $id = [
@@ -65,6 +66,7 @@ class uploaddatafsCommand extends Command
             ];
 
             $datos = [
+                //'type' => 'attendance_time',
                 'attributes' => $attibutes,
                 'relationships' => $relationships
             ];
@@ -72,11 +74,11 @@ class uploaddatafsCommand extends Command
             $dataUpload = [
                 'data' => $datos
             ];
-            //print(json_encode($dataUpload));
+            
+            print(json_encode($dataUpload));
+            $uploadAttendance = Http::withToken($token->access_token)->post($url, json_encode($dataUpload));
+            print($uploadAttendance);
         }
 
-        //print(json_encode($dataUpload));
-        $uploadAttendance = Http::withToken($token->access_token)->post($url, $dataUpload);
-        print($uploadAttendance);
     }
 }

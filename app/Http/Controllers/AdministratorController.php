@@ -54,15 +54,15 @@ class AdministratorController extends Controller
     }
 
     public function assistanceFS(){
-        $ruta = '';
         $user = Auth::user();
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
-        
-        $responseUsers = Personal::with('exist_fs')->get();
+        $system = ['SYSTEM', 'System', 'system'];
+
+        $responseUsers = Personal::with('exist_fs')->whereNotIn('identifier', $system)->get();
 
         //return $responseUsers;
-        return view('admin.asistenciaFS', compact('ruta', 'responseUsers', 'user'));
+        return view('admin.asistenciaFS', compact('responseUsers', 'user'));
     }
 
     public function users(){
