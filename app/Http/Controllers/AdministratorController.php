@@ -19,6 +19,7 @@ class AdministratorController extends Controller
         $user = Auth::user();
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
+        $system = ['SYSTEM', 'System', 'system'];
 
         if($hora >= '00:00:00' && $hora < '07:00:00'){
             $fecha->subDay(1);
@@ -28,7 +29,7 @@ class AdministratorController extends Controller
         }
 
         $contarHik = Assistance::query()->where('date', $dia)->distinct('ID')->count();
-        $contarFS = Personal::all()->count();
+        $contarFS = Personal::query()->whereNotIn('identifier', $system)->count();
 
         return view('admin.index', compact('ruta', 'user', 'contarHik', 'contarFS'));
     }
