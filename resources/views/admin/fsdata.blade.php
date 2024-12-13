@@ -20,11 +20,11 @@
                                 </label>
                             @endforeach
                         </div>
-                        <!--
-                        <div class="col-lg-4 text-right">
-                            <a class="btn btn-primary" href="{{route('getDataFS')}}">Obtener Accesos</a>
-                        </div>
-                        -->
+                        @if ($user->name == 'admin')
+                            <div class="col-lg-4 text-right">
+                                <a class="btn btn-primary" href="{{route('getDataFS')}}">Obtener Accesos</a>
+                            </div>
+                        @endif
                     
                     </div>
 

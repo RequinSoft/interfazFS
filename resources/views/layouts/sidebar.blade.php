@@ -53,6 +53,7 @@
         <div id="collapseConf" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('fsdata')}}">FS Data</a>
+                <a class="collapse-item" href="{{route('ldap')}}">LDAP</a>
                 <a class="collapse-item" href="{{route('users')}}">Usuarios</a>
             </div>
         </div>

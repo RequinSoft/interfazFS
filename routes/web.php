@@ -46,4 +46,16 @@ Route::controller(AdministratorController::class)
     
         Route::post('/FSDataUpdate','fsdata_update')
             ->name('fsdata-update'); 
+        
+        Route::get('/ldap','ldap')
+            ->name('ldap');
+        
+        Route::get('/editLdap','editLdap')
+            ->name('editLdap');
+        
+        Route::post('/updateLdap','updateLdap')
+            ->name('updateLdap');
+        
+        Route::get('/testLdap','testLdap')
+            ->name('testLdap');
 });

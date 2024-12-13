@@ -11,6 +11,7 @@ use App\Models\ReadHik;
 use App\Models\Fsdata;
 use App\Models\Locations;
 use App\Models\Personal;
+use App\Models\Ldap;
 
 class AdministratorController extends Controller
 {
@@ -180,7 +181,7 @@ class AdministratorController extends Controller
     }
 
     public function fsdata_edit(){
-        $ruta = '';
+        
         $user = Auth::user();
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
@@ -210,5 +211,54 @@ class AdministratorController extends Controller
         );
 
         return redirect()->route('fsdata');
+    }
+
+    public function ldap(){
+        $user = Auth::user();
+        $fecha = Carbon::now();
+        $hora = $fecha->format('H:i:s');
+        $hoy = $fecha->valueOf();
+
+        $ldap = Ldap::find(1);
+
+        return view('admin.ldap', compact('ldap', 'user', 'hoy'));
+    }
+
+    public function editLdap(){
+        $user = Auth::user();
+        $fecha = Carbon::now();
+        $hora = $fecha->format('H:i:s');
+
+        $ldap = Ldap::find(1);
+
+        return view('admin.ldap-edit', compact('ldap', 'user'));        
+    }
+
+    public function updateLdap(Request $request){
+        //Reglas de los campos 
+        $validated = $request->validate([
+            'servers' => 'required',
+            'port' => 'required',
+            'user' => 'required',
+            'password' => 'required',
+        ],
+        [
+            'servers.required' => 'El servidor es obligatorio',
+            'port.required' => 'El puerto es obligatorio',
+            'user.required' => 'El usuario es obligatorio',
+            'password.required' => 'La contraseña es obligatoria',
+        ]); 
+        
+        $ldap = Ldap::updateOrCreate(
+            ['id' => 1],
+            [
+                'servers' => $request->servers,
+                'port' => $request->port,
+                'user' => $request->user,
+                'password' => $request->password,
+            ]
+        );
+        
+        return redirect()->route('ldap');
     }
 }

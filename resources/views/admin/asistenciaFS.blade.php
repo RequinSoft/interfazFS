@@ -29,30 +29,32 @@
                         </thead>
                         <tbody>
                             @foreach ($responseUsers as $asis)
-                                <tr>
-                                    <td>{{$asis->id_fs}}</td>
-                                    <td>{{$asis->name}}</td>
-                                    <td>{{$asis->identifier}}</td>
-                                    <td>{{$asis->email}}</td>
-                                    <td class="text-center">
-                                        @if (isset($asis->exist_fs))
-                                            @if ($asis->exist_fs->exist_fs == 1)
-                                                Sí
-                                            @else
-                                                No
-                                            @endif                                            
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @if (isset($asis->exist_fs))
-                                            @if ($asis->exist_fs->sync == 1)
-                                                Sí
-                                            @else
-                                                No
-                                            @endif                                            
-                                        @endif
-                                    </td>
-                                </tr>
+                                @if (isset($asis->exist_fs))
+                                    <tr>
+                                        <td>{{$asis->id_fs}}</td>
+                                        <td>{{$asis->name}}</td>
+                                        <td>{{$asis->identifier}}</td>
+                                        <td>{{$asis->email}}</td>
+                                        <td class="text-center">
+                                            @if (isset($asis->exist_fs))
+                                                @if ($asis->exist_fs->exist_fs == 1)
+                                                    Sí
+                                                @else
+                                                    No
+                                                @endif                                            
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            @if (isset($asis->exist_fs))
+                                                @if ($asis->exist_fs->sync == 1)
+                                                    Sí
+                                                @else
+                                                    No
+                                                @endif                                            
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

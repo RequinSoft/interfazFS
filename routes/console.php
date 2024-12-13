@@ -9,3 +9,4 @@ Schedule::command('app:locations-command')->daily();
 Schedule::command('app:users-command')->daily();
 Schedule::command('app:asistencia-command')->EveryFiveMinutes();
 Schedule::command('app:asistencia-hik-fs-command')->EveryTenMinutes();
+//Schedule::command('app:app:uploaddatafs-command')->Hourly();

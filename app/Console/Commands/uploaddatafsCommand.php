@@ -44,11 +44,12 @@ class uploaddatafsCommand extends Command
 
         foreach($asistencia as $asistencia){
             
-            $date = Carbon::createFromFormat('Y-m-d H:i:s', $asistencia->datetime, 'America/Mexico_City');
-            $date->setTimezone('UTC');
+            $dateBegin = Carbon::createFromFormat('Y-m-d H:i:s', $asistencia->datetime, 'America/Mexico_City');
+            $dateBegin->setTimezone('UTC');
+
             
             $attibutes = [
-                'start_time' => $date,
+                'start_time' => $dateBegin,
                 'end_time' => '2024-12-09T23:00:00.000000Z',
                 'label' => 'system',
             ];

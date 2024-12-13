@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'FS Data')
+@section('title', 'LDAP')
 
 @section('content')
 
@@ -15,17 +15,30 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Datos</h1>
                         </div>
-                        <form class="user" action="{{route('fsdata-update')}}" method="POST">
+                        <form class="user" action="{{route('updateLdap')}}" method="POST">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" name="username"
-                                        value="{{isset($fsdata->username) ? $fsdata->username : ''}}"
-                                        placeholder="Email">
+                                    <input type="text" class="form-control form-control-user" name="servers"
+                                        value="{{isset($ldap->servers) ? $ldap->servers : ''}}"
+                                        placeholder="Servidor">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" name="port"
+                                        value="{{isset($ldap->port) ? $ldap->port : ''}}"
+                                        placeholder="Puerto">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="user"
+                                        value="{{isset($ldap->user) ? $ldap->user : ''}}"
+                                        placeholder="Usuario">
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user" name="password"
-                                        value="{{isset($fsdata->password) ? $fsdata->password : ''}}"
+                                        value="{{isset($ldap->password) ? $ldap->password : ''}}"
                                         placeholder="Contraseña">
                                 </div>
                             </div>
