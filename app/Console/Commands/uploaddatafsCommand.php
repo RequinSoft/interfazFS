@@ -36,7 +36,7 @@ class uploaddatafsCommand extends Command
         $dataUpload = [];
         $datos = [];
 
-        $asistencia = Assistance::with('sync_data')->where('exist_fs', 1)->where('sync', 0)->where('date', $dia)->where('id_hik', 'GAGE910223N6A')->get();
+        $asistencia = Assistance::with('sync_data')->where('exist_fs', 1)->where('sync', 0)->where('date', $dia)->where('id_hik', 'JAOJ840624UI6')->get();
         
         $url = 'https://app.fatiguescience.com/readi_api/v1/attendance_times';
         $token = Fsdata::find(1);
@@ -47,10 +47,17 @@ class uploaddatafsCommand extends Command
             $dateBegin = Carbon::createFromFormat('Y-m-d H:i:s', $asistencia->datetime, 'America/Mexico_City');
             $dateBegin->setTimezone('UTC');
 
+            $dateEnd = Carbon::parse($asistencia->datetime);
+            $dateEnd = $dateEnd->addHour(10);
+            $dateEnd = Carbon::createFromFormat('Y-m-d H:i:s', $dateEnd, 'America/Mexico_City');
+            $dateEnd->setTimeZone('UTC');
+            //print($dateEnd);
+
+
             
             $attibutes = [
                 'start_time' => $dateBegin,
-                'end_time' => '2024-12-09T23:00:00.000000Z',
+                'end_time' => $dateEnd,
                 'label' => 'system',
             ];
 

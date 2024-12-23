@@ -261,4 +261,9 @@ class AdministratorController extends Controller
         
         return redirect()->route('ldap');
     }
+
+    public function testLdap(Request $request){
+        
+        return 'Test';
+    }
 }
