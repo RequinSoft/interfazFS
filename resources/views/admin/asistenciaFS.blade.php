@@ -47,7 +47,7 @@
                                         <td class="text-center">
                                             @if (isset($asis->exist_fs))
                                                 @if ($asis->exist_fs->sync == 1)
-                                                    Sí
+                                                    <img src="{{asset('img/checked-32.png')}}" alt="">
                                                 @else
                                                     No
                                                 @endif                                            
