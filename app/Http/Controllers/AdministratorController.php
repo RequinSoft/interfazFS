@@ -188,7 +188,7 @@ class AdministratorController extends Controller
 
         $fsdata = FsData::find(1);
 
-        return view('admin.fsdata-edit', compact('ruta', 'fsdata', 'user'));
+        return view('admin.fsdata-edit', compact('fsdata', 'user'));
     }
 
     public function fsdata_update(Request $request){
