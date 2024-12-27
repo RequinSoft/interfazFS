@@ -10,4 +10,4 @@ Schedule::command('app:users-command')->daily();
 Schedule::command('app:asistencia-command')->EveryFiveMinutes();
 Schedule::command('app:asistencia-hik-fs-command')->EveryTenMinutes();
 Schedule::command('app:app:uploaddatafs-command')->EveryTenMinutes()->between('5:00', '9:00');
-//Schedule::command('app:app:uploaddatafs-command')->EveryTenMinutes()->between('17:00', '21:00');
+Schedule::command('app:app:uploaddatafs-command')->EveryTenMinutes()->between('17:00', '21:00');

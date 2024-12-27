@@ -104,7 +104,7 @@ class uploaddatafsCommand extends Command
                 //print($asistencia);
 
             }else{
-                print($response);
+                print($response.'     ');
             }
         }
 
