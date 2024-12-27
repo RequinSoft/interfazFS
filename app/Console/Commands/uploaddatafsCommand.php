@@ -42,6 +42,7 @@ class uploaddatafsCommand extends Command
         $token = Fsdata::find(1);
         //print($token->access_token);
 
+        $n=1;
         foreach($asistencia as $asistencia){
             
             $dateBegin = Carbon::createFromFormat('Y-m-d H:i:s', $asistencia->datetime, 'America/Mexico_City');
@@ -88,7 +89,7 @@ class uploaddatafsCommand extends Command
             $response = $uploadAttendance->status();
             
             if($response == 201){
-                print($response);
+                //print($response);
 
                 $updateAssistance = Assistance::query()->where([
                     'id_hik' => $asistencia->id_hik,
@@ -96,7 +97,9 @@ class uploaddatafsCommand extends Command
                 ])->update([
                     'sync' => 1
                 ]);
-                print($updateAssistance);
+                print('Registro --> '.$n.'     ');
+                $n++;
+                //print($updateAssistance);
 
                 //print($asistencia);
 
