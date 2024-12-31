@@ -31,12 +31,12 @@ class AdministratorController extends Controller
 
         $contarHik = Assistance::query()->where('date', $dia)->distinct('ID')->count();
         $contarFS = Personal::query()->whereNotIn('identifier', $system)->count();
+        $asistenciaReloj = Assistance::query()->where('date', $dia)->where('exist_fs', 1)->distinct('ID')->count();
 
-        return view('admin.index', compact('ruta', 'user', 'contarHik', 'contarFS'));
+        return view('admin.index', compact('ruta', 'user', 'contarHik', 'contarFS', 'asistenciaReloj'));
     }
 
     public function assistanceHik(){
-        $ruta = '';
         $user = Auth::user();
         $fecha = Carbon::now();
         $hora = $fecha->format('H:i:s');
@@ -52,7 +52,7 @@ class AdministratorController extends Controller
         $asistencia = Assistance::query()->where('date', $dia)->orderBy('time', 'asc')->get();
         $cuenta = $asistencia->count();
 
-        return view('admin.asistenciaHik', compact('ruta', 'asistencia', 'cuenta', 'user'));
+        return view('admin.asistenciaHik', compact('asistencia', 'cuenta', 'user'));
     }
 
     public function assistanceFS(){
