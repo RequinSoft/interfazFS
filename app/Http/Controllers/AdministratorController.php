@@ -68,7 +68,10 @@ class AdministratorController extends Controller
     }
 
     public function users(){
+        $user = Auth::user();
+        $usuarios = [];
 
+        return view('admin.usuarios', compact('usuarios', 'user'));
     }
 
     public function locations(){
