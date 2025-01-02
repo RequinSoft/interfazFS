@@ -26,6 +26,21 @@ Route::controller(AdministratorController::class)
         Route::get('/users','users')
             ->name('users');
 
+        Route::get('/addUsers','addUsers')
+            ->name('addUsers');
+
+        Route::post('/storageUsers','storageUsers')
+            ->name('storageUsers');
+
+        Route::get('/editUsers/{id}','editUsers')
+            ->name('editUsers');
+
+        Route::get('/passwords/{id}','passwords')
+            ->name('passwords');
+
+        Route::get('/deleteUsers/{id}','deleteUsers')
+            ->name('deleteUsers');
+
         Route::get('/locations','locations')
             ->name('locations');
         

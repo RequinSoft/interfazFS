@@ -12,6 +12,7 @@ use App\Models\Fsdata;
 use App\Models\Locations;
 use App\Models\Personal;
 use App\Models\Ldap;
+use App\Models\User;
 
 class AdministratorController extends Controller
 {
@@ -69,9 +70,35 @@ class AdministratorController extends Controller
 
     public function users(){
         $user = Auth::user();
-        $usuarios = [];
+        $usuarios = User::all();
 
         return view('admin.usuarios', compact('usuarios', 'user'));
+    }
+
+    public function passwords($id){
+
+        return 'Passwords '.$id;
+    }
+
+    public function addUsers(){
+        $user = Auth::user();
+
+        return view('admin.addUsers', compact('user'));
+    }
+
+    public function storageUsers(Request $request){
+
+        return $request;
+    }
+
+    public function editUsers($id){
+
+        return 'Edit '.$id;
+    }
+
+    public function deleteUsers($id){
+
+        return 'Delete '.$id;
     }
 
     public function locations(){
