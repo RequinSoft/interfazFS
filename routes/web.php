@@ -35,11 +35,20 @@ Route::controller(AdministratorController::class)
         Route::get('/editUsers/{id}','editUsers')
             ->name('editUsers');
 
+        Route::post('/updateUsers','updateUsers')
+            ->name('updateUsers');
+
         Route::get('/passwords/{id}','passwords')
             ->name('passwords');
 
+        Route::post('/updatePasswords','updatePasswords')
+            ->name('updatePasswords');
+
         Route::get('/deleteUsers/{id}','deleteUsers')
             ->name('deleteUsers');
+
+        Route::get('/activateUsers/{id}','activateUsers')
+            ->name('activateUsers');
 
         Route::get('/locations','locations')
             ->name('locations');

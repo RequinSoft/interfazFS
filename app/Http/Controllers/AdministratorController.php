@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\Rule;
 use App\Models\Assistance;
 use App\Models\ReadHik;
 use App\Models\Fsdata;
@@ -71,13 +72,44 @@ class AdministratorController extends Controller
     public function users(){
         $user = Auth::user();
         $usuarios = User::all();
+        $contador = 1;
 
-        return view('admin.usuarios', compact('usuarios', 'user'));
+        return view('admin.usuarios', compact('usuarios', 'user', 'contador'));
     }
 
-    public function passwords($id){
+    public function passwords($id){        
+        $user = Auth::user();
+        $usuario = User::find($id);
 
-        return 'Passwords '.$id;
+        return view('admin.passwords', compact('usuario', 'user'));
+    }
+    
+    public function updatePasswords(Request $request){
+        
+
+        $validated = $request->validate(
+            [
+                'password' => 'required|min:12',
+                'password1' => 'required|min:12',
+                'password1' => 'same:password',
+            ],
+            [
+                'password.required' => 'La contraseña es obligatoria',
+                'password.min' => 'La contraseña debe ser de 12 caracteres mínimo',
+                'password.same' => 'Las contraseñas no coinciden',
+                'password1.same' => 'Las contraseñas no coinciden',
+            ]
+        );
+
+        $usuario = User::find($request->id);
+        $id = $request->id;
+        $updatePassword = User::query()->where(['id' => $id])->update([
+            'password' => bcrypt($request->password),
+        ]); 
+        
+        $msg_pass = 'Se actualizó la contraseña del usuario '.$usuario->user;
+
+        return  redirect()->route('users')->with('msg_pass', $msg_pass);
     }
 
     public function addUsers(){
@@ -88,17 +120,102 @@ class AdministratorController extends Controller
 
     public function storageUsers(Request $request){
 
-        return $request;
+        $validated = $request->validate(
+            [
+                'user' => 'required|unique:users',
+                'name' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required|min:12',
+                'password1' => 'required|same:password',
+            ],
+            [
+                'user.required' => 'El usuario es obligatorio',
+                'user.unique' => 'Usuario Duplicado',
+                'name.required' => 'El nombre es obligatorio',
+                'email.required' => 'El email es obligatorio',
+                'email.unique' => 'El email ya está en uso',
+                'password.required' => 'La contraseña es obligatoria',
+                'password1.required' => 'La validación de la contraseña es obligatoria',
+                'password1.same' => 'Las contraseñas deben de coincidir',
+                'password.min' => 'La contraseña debe ser de 12 caracteres mínimo',
+            ]
+        );
+
+        $user = User::create([
+            'user' => $request->user,
+            'name' => $request->name,
+            'password' => $request->password,
+            'rol' => $request->rol,
+            'authen' => $request->authen,
+            'email' => $request->email,
+            'active' => 1,
+        ]);
+
+        $msg_addUser = 'Se creó el usuario '.$user->user;
+
+        return redirect()->route('users')->with('msg_pass', $msg_addUser);
     }
 
     public function editUsers($id){
+        $user = Auth::user();
+        $usuario = User::find($id);
 
-        return 'Edit '.$id;
+        return view('admin.editUsers', compact('user', 'usuario'));
+    }
+
+    public function updateUsers(Request $request){
+
+        $validated = $request->validate(
+            [
+                'user' => [
+                        'required',
+                        Rule::unique('users')->ignore($request->id),
+                ],
+                'name' => 'required',
+                'email' => [
+                        'required',
+                        Rule::unique('users')->ignore($request->id),
+                ],
+            ],
+            [
+                'user.required' => 'El usuario es obligatorio',
+                'user.unique' => 'Usuario Duplicado',
+                'name.required' => 'El nombre es obligatorio',
+                'email.required' => 'El email es obligatorio',
+                'email.unique' => 'El email ya está en uso',
+            ]
+        );
+
+        $usuario = User::where('id', $request->id)->update([
+            'user' => $request->user,
+            'name' => $request->name,
+            'rol' => $request->rol,
+            'authen' => $request->authen,
+            'email' => $request->email,
+            'active' => 1,
+        ]);
+
+        return redirect()->route('users');
     }
 
     public function deleteUsers($id){
 
-        return 'Delete '.$id;
+        $usuario = User::where('id', $id)->update([
+            'active' => 0,
+        ]);
+        $msg_deactive = 'Se desactivó el usuario '.$usuario;
+        
+        return redirect()->route('users')->with('msg_deactive', $msg_deactive);
+    }
+
+    public function activateUsers($id){
+
+        $usuario = User::where('id', $id)->update([
+            'active' => 1,
+        ]);
+        $msg_active = 'Se activó el usuario '.$usuario;
+
+        return redirect()->route('users')->with('msg_active', $msg_active);
     }
 
     public function locations(){
@@ -294,6 +411,19 @@ class AdministratorController extends Controller
 
     public function testLdap(Request $request){
         
-        return 'Test';
+        $ldap = Ldap::find(1);
+        $ldap_user = $ldap->user.'@'.$ldap->domain;
+
+        $ldap_conn = ldap_connect($ldap->servers, $ldap->port);
+        ldap_set_option($ldap_conn, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ldap_conn, LDAP_OPT_REFERRALS, 0);
+
+        if(@ldap_bind($ldap_conn, $ldap_user, $ldap->password)){
+            $msg = '¡La conexión es exitosa!';
+            return redirect()->route('ldap')->with('successLDAP', $msg);
+        }else{
+            $msg = '¡La conexión no se pudo realizar!';
+            return redirect()->route('ldap')->with('failureLDAP', $msg);
+        }
     }
 }

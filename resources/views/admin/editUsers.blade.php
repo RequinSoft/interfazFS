@@ -13,47 +13,47 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Usuarios</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Editar Usuarios</h1>
                         </div>
-                        <form class="user" action="{{route('storageUsers')}}" method="POST">
+                        <form class="user" action="{{route('updateUsers')}}" method="POST">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" name="user"
-                                        value="{{old('user')}}"
+                                        value="{{$usuario->user}}"
                                         placeholder="Usuario">
+
+                                    <input type="text" class="form-control form-control-user" name="id"
+                                        value="{{$usuario->id}}" hidden>
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user" name="name"
-                                        value="{{old('name')}}"
+                                        value="{{$usuario->name}}"
                                         placeholder="Nombre">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" name="password"
-                                        value="{{old('password')}}"
-                                        placeholder="Contraseña">
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" name="password1"
-                                        value="{{old('password1')}}"
-                                        placeholder="Repetir Contraseña">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
                                     <select class="form-control rounded-pill" name="rol">
-                                        <option value="admin">Admin</option>
-                                        <option selected value="usuario">Usuario</option>
+                                        @if ($usuario->rol == 'admin')
+                                            <option selected value="admin">Admin</option>
+                                            <option value="usuario">Usuario</option>
+                                        @else
+                                            <option value="admin">Admin</option>
+                                            <option selected value="usuario">Usuario</option>                                            
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <select class="form-control rounded-pill" name="authen">
-                                        <option selected value="1">Local</option>
-                                        <option value="2">LDAP</option>
+                                        @if ($usuario->authen == 1)
+                                            <option selected value="1">Local</option>
+                                            <option value="2">LDAP</option>
+                                        @else
+                                            <option value="1">Local</option>
+                                            <option selected value="2">LDAP</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" name="email"
-                                        value="{{old('email')}}"
+                                        value="{{$usuario->email}}"
                                         placeholder="Email">
                                 </div>
                             </div>

@@ -44,6 +44,7 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('js/sweetalert.min.js')}}"></script>
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -66,6 +67,8 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+
+    @yield('scripts')
 
 </body>
 

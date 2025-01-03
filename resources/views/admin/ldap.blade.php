@@ -57,6 +57,15 @@
                                         placeholder="Contraseña">
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="">Dominio</label>
+                                    <input disabled type="text" class="form-control form-control-user" 
+                                        value="{{isset($ldap->domain) ? $ldap->domain : ''}}"
+                                        placeholder="Dominio">
+                                </div>
+                            </div>
                             
                             <a href="{{route('editLdap')}}" class="btn btn-primary btn-user">
                                 Editar
@@ -72,4 +81,30 @@
     </div>
 
 </div>
+@endsection
+
+@section('scripts')
+
+    @if (session('failureLDAP'))
+    <script>
+        Swal.fire({
+            type: "error",
+            title: "LDAP ",
+            text: "{{ session('failureLDAP') }}",
+            confirmButtonText: "Aceptar",
+        });
+    </script>
+    @endif
+
+    @if (session('successLDAP'))
+    <script>
+        Swal.fire({
+            type: "success",
+            title: "LDAP ",
+            text: "{{ session('successLDAP') }}",
+            confirmButtonText: "Aceptar",
+        });
+    </script>
+    @endif
+
 @endsection

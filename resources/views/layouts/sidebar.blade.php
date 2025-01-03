@@ -43,6 +43,7 @@
         </div>
     </li>
 
+    @if ($user->rol == 'admin')
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConf"
@@ -58,6 +59,7 @@
             </div>
         </div>
     </li>
+    @endif
 
 
 
