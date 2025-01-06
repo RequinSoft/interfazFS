@@ -41,16 +41,20 @@
                                     <td class="text-center">{{$usuario->authen == 1 ? 'Local':'LDAP'}}</td>
                                     <td>{{$usuario->email}}</td>
                                     <td class="text-center">
-                                        @if ($usuario->active == 1)
-                                            @if ($usuario->authen == 1)
-                                                <a href="{{ route('passwords', $usuario->id) }}" class="btn btn-sm" title="Contraseña"><i class="text-500 fas fa-key"></i></a>
+                                        @if ($usuario->user != 'admin')
+                                            @if ($usuario->active == 1)
+                                                @if ($usuario->authen == 1)
+                                                    <a href="{{ route('passwords', $usuario->id) }}" class="btn btn-sm" title="Contraseña"><i class="text-500 fas fa-key"></i></a>
+                                                    &nbsp; 
+                                                @endif
+                                                <a href="{{ route('editUsers', $usuario->id) }}" class="btn btn-sm" title="Editar"><i class="text-500 fas fa-edit"></i></a>
                                                 &nbsp; 
+                                                <a href="{{ route('deleteUsers', $usuario->id) }}" class="btn btn-sm" title="Desactivar"><i class="text-500 fas fa-trash-alt"></i></a>
+                                            @else
+                                                <a href="{{ route('activateUsers', $usuario->id) }}" class="btn btn-sm btn-danger" title="Activar"><i class="text-500 fas fa-user"></i></a>
                                             @endif
-                                            <a href="{{ route('editUsers', $usuario->id) }}" class="btn btn-sm" title="Editar"><i class="text-500 fas fa-edit"></i></a>
-                                            &nbsp; 
-                                            <a href="{{ route('deleteUsers', $usuario->id) }}" class="btn btn-sm" title="Desactivar"><i class="text-500 fas fa-trash-alt"></i></a>
                                         @else
-                                            <a href="{{ route('activateUsers', $usuario->id) }}" class="btn btn-sm btn-success" title="Activar"><i class="text-500 fas fa-key"></i></a>
+                                            <a href="{{ route('passwords', $usuario->id) }}" class="btn btn-sm" title="Contraseña"><i class="text-500 fas fa-key"></i></a>                                                    
                                         @endif
                                     </td>
                                 </tr>

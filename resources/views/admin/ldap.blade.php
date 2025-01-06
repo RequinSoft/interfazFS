@@ -88,6 +88,7 @@
     @if (session('failureLDAP'))
     <script>
         Swal.fire({
+            icon: "error",
             type: "error",
             title: "LDAP ",
             text: "{{ session('failureLDAP') }}",
@@ -99,9 +100,22 @@
     @if (session('successLDAP'))
     <script>
         Swal.fire({
+            icon: "success",
             type: "success",
             title: "LDAP ",
             text: "{{ session('successLDAP') }}",
+            confirmButtonText: "Aceptar",
+        });
+    </script>
+    @endif
+
+    @if (session('updatedLDAP'))
+    <script>
+        Swal.fire({
+            icon: "success",
+            type: "success",
+            title: "LDAP ",
+            text: "{{ session('updatedLDAP') }}",
             confirmButtonText: "Aceptar",
         });
     </script>

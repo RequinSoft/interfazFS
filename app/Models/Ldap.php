@@ -15,5 +15,6 @@ class Ldap extends Model
         'port',
         'user',
         'password',
+        'domain',
     ];
 }

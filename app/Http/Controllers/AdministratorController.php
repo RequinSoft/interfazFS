@@ -200,20 +200,24 @@ class AdministratorController extends Controller
 
     public function deleteUsers($id){
 
-        $usuario = User::where('id', $id)->update([
+        $updateUsuario = User::where('id', $id)->update([
             'active' => 0,
         ]);
-        $msg_deactive = 'Se desactivó el usuario '.$usuario;
+
+        $usuario = User::find($id);
+        $msg_deactive = 'Se desactivó el usuario '.$usuario->user;
         
         return redirect()->route('users')->with('msg_deactive', $msg_deactive);
     }
 
     public function activateUsers($id){
 
-        $usuario = User::where('id', $id)->update([
+        $updateUsuario = User::where('id', $id)->update([
             'active' => 1,
         ]);
-        $msg_active = 'Se activó el usuario '.$usuario;
+        
+        $usuario = User::find($id);
+        $msg_active = 'Se activó el usuario '.$usuario->user;
 
         return redirect()->route('users')->with('msg_active', $msg_active);
     }
@@ -388,12 +392,14 @@ class AdministratorController extends Controller
             'port' => 'required',
             'user' => 'required',
             'password' => 'required',
+            'domain' => 'required',
         ],
         [
             'servers.required' => 'El servidor es obligatorio',
             'port.required' => 'El puerto es obligatorio',
             'user.required' => 'El usuario es obligatorio',
             'password.required' => 'La contraseña es obligatoria',
+            'domain.required' => 'El dominio es obligatorio',
         ]); 
         
         $ldap = Ldap::updateOrCreate(
@@ -403,10 +409,12 @@ class AdministratorController extends Controller
                 'port' => $request->port,
                 'user' => $request->user,
                 'password' => $request->password,
+                'domain' => $request->domain,
             ]
         );
         
-        return redirect()->route('ldap');
+        $msg = '¡La configuración se editó exitosamente!';
+        return redirect()->route('ldap')->with('updatedLDAP', $msg);
     }
 
     public function testLdap(Request $request){
