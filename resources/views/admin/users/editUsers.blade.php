@@ -38,10 +38,16 @@
                                     <select class="form-control rounded-pill" name="rol">
                                         @if ($usuario->rol == 'admin')
                                             <option selected value="admin">Admin</option>
-                                            <option value="usuario">Usuario</option>
-                                        @else
+                                            <option value="medicos">Medicos</option>
+                                            <option value="COM">COM</option>
+                                        @elseif ($usuario->rol == 'medicos')
                                             <option value="admin">Admin</option>
-                                            <option selected value="usuario">Usuario</option>                                            
+                                            <option selected value="medicos">Medicos</option>   
+                                            <option value="COM">COM</option>   
+                                        @elseif ($usuario->rol == 'COM')
+                                            <option value="admin">Admin</option>
+                                            <option value="medicos">Medicos</option>
+                                            <option selected value="COM">COM</option>                                       
                                         @endif
                                     </select>
                                 </div>

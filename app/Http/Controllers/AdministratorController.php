@@ -116,7 +116,7 @@ class AdministratorController extends Controller
     public function addUsers(){
         $user = Auth::user();
 
-        return view('admin.addUsers', compact('user'));
+        return view('admin.users.addUsers', compact('user'));
     }
 
     public function storageUsers(Request $request){
