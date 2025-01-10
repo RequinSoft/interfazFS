@@ -14,6 +14,7 @@ use App\Models\Locations;
 use App\Models\Personal;
 use App\Models\Ldap;
 use App\Models\User;
+use App\Models\Cuadrilleros;
 
 class AdministratorController extends Controller
 {
@@ -74,14 +75,14 @@ class AdministratorController extends Controller
         $usuarios = User::all();
         $contador = 1;
 
-        return view('admin.usuarios', compact('usuarios', 'user', 'contador'));
+        return view('admin.users.usuarios', compact('usuarios', 'user', 'contador'));
     }
 
     public function passwords($id){        
         $user = Auth::user();
         $usuario = User::find($id);
 
-        return view('admin.passwords', compact('usuario', 'user'));
+        return view('admin.users.passwords', compact('usuario', 'user'));
     }
     
     public function updatePasswords(Request $request){
@@ -160,7 +161,7 @@ class AdministratorController extends Controller
         $user = Auth::user();
         $usuario = User::find($id);
 
-        return view('admin.editUsers', compact('user', 'usuario'));
+        return view('admin.users.editUsers', compact('user', 'usuario'));
     }
 
     public function updateUsers(Request $request){
@@ -372,7 +373,7 @@ class AdministratorController extends Controller
 
         $ldap = Ldap::find(1);
 
-        return view('admin.ldap', compact('ldap', 'user', 'hoy'));
+        return view('admin.ldap.ldap', compact('ldap', 'user', 'hoy'));
     }
 
     public function editLdap(){
@@ -382,7 +383,7 @@ class AdministratorController extends Controller
 
         $ldap = Ldap::find(1);
 
-        return view('admin.ldap-edit', compact('ldap', 'user'));        
+        return view('admin.ldap.ldap-edit', compact('ldap', 'user'));        
     }
 
     public function updateLdap(Request $request){
@@ -434,4 +435,120 @@ class AdministratorController extends Controller
             return redirect()->route('ldap')->with('failureLDAP', $msg);
         }
     }
+
+    /***************************************************** */
+    /***************************************************** */
+    /*************************** Cuadrilleros ************ */ 
+
+    public function cuadrilleros(){
+        $user = Auth::user();
+        $cuadrilleros = Cuadrilleros::with('asistioCuadrillero')->get();
+        $contador = 1;
+return $cuadrilleros;
+        return view('admin.cuadrilleros.cuadrilleros', compact('cuadrilleros', 'user', 'contador'));
+    }
+
+    public function addCuadrilleros(){
+        $user = Auth::user();
+
+        return view('admin.cuadrilleros.addCuadrilleros', compact('user'));
+    }
+
+    public function storageCuadrilleros(Request $request){
+        
+        $validated = $request->validate(
+            [
+                'name' => 'required',
+                'sdn' => 'required',
+                'RFC' => 'required|min:13|max:13|unique:cuadrilleros',
+            ],
+            [
+                'name.required' => 'El nombre es obligatorio',
+                'sdn.required' => 'El SDN es obligatorio',
+                'RFC.required' => 'El RFC es obligatorio',
+                'RFC.min' => 'El RFC debe tener 13 dígitos',
+                'RFC.max' => 'El RFC debe tener 13 dígitos',
+                'RFC.unique' => 'El RFC ya existe',
+            ]
+        );
+
+        $user = Cuadrilleros::create([
+            'name' => $request->name,
+            'sdn' => $request->sdn,
+            'work_role' => $request->work_role,
+            'work_place' => $request->work_place,
+            'RFC' => $request->RFC,
+            'active' => 1,
+        ]);
+
+        $msg_addUser = 'Se creó el usuario '.$user->name;
+
+        return redirect()->route('cuadrilleros')->with('msg_addUser', $msg_addUser);
+    }
+
+    public function editCuadrilleros($id){
+        $user = Auth::user();
+        $cuadrillero = Cuadrilleros::find($id);
+
+        return view('admin.cuadrilleros.editCuadrilleros', compact('user', 'cuadrillero'));
+    }
+
+    public function updateCuadrilleros(Request $request){
+
+        $validated = $request->validate(
+            [
+                'RFC' => [
+                        'required',
+                        Rule::unique('cuadrilleros')->ignore($request->id),
+                ],
+                'name' => 'required',
+            ],
+            [
+                'name.required' => 'El nombre es obligatorio',
+                'RFC.required' => 'El RFC es obligatorio',
+                'RFC.unique' => 'El RFC ya está en uso',
+            ]
+        );
+
+
+        $usuario = Cuadrilleros::where('id', $request->id)->update([
+            'name' => $request->name,
+            'work_role' => $request->work_role,
+            'work_place' => $request->work_place,
+            'sdn' => $request->sdn,
+            'RFC' => $request->RFC,
+            'active' => 1,
+        ]);
+        $cuadrillero = Cuadrilleros::find($request->id);
+
+        $msg_editUser = 'Se editó el usuario '.$cuadrillero->name;
+        return redirect()->route('cuadrilleros')->with('msg_editUser', $msg_editUser);
+    }
+
+    public function deleteCuadrilleros($id){
+
+        $updateUsuario = Cuadrilleros::where('id', $id)->update([
+            'active' => 0,
+        ]);
+
+        $usuario = Cuadrilleros::find($id);
+        $msg_deactive = 'Se desactivó el usuario '.$usuario->user;
+        
+        return redirect()->route('cuadrilleros')->with('msg_deactive', $msg_deactive);
+    }
+
+    public function activateCuadrilleros($id){
+
+        $updateUsuario = Cuadrilleros::where('id', $id)->update([
+            'active' => 1,
+        ]);
+        
+        $usuario = Cuadrilleros::find($id);
+        $msg_active = 'Se activó el usuario '.$usuario->user;
+
+        return redirect()->route('cuadrilleros')->with('msg_active', $msg_active);
+    }
+    /***************************************************** */
+    /***************************************************** */
+    /*************************** Cuadrilleros ************ */ 
 }

@@ -50,6 +50,27 @@ Route::controller(AdministratorController::class)
         Route::get('/activateUsers/{id}','activateUsers')
             ->name('activateUsers');
 
+        Route::get('/cuadrilleros','cuadrilleros')
+            ->name('cuadrilleros');
+
+        Route::get('/addCuadrilleros','addCuadrilleros')
+        ->name('addCuadrilleros');
+
+        Route::post('/storageCuadrilleros','storageCuadrilleros')
+            ->name('storageCuadrilleros');
+
+        Route::get('/editCuadrilleros/{id}','editCuadrilleros')
+            ->name('editCuadrilleros');
+
+        Route::post('/updateCuadrilleros','updateCuadrilleros')
+            ->name('updateCuadrilleros');
+
+        Route::get('/deleteCuadrilleros/{id}','deleteCuadrilleros')
+            ->name('deleteCuadrilleros');
+
+        Route::get('/activateCuadrilleros/{id}','activateCuadrilleros')
+            ->name('activateCuadrilleros');
+
         Route::get('/locations','locations')
             ->name('locations');
         

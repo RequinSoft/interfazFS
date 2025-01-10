@@ -13,56 +13,41 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Usuarios</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Cuadrilleros</h1>
                         </div>
-                        <form class="user" action="{{route('storageUsers')}}" method="POST">
+                        <form class="user" action="{{route('storageCuadrilleros')}}" method="POST">
                             @csrf
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" name="user"
-                                        value="{{old('user')}}"
-                                        placeholder="Usuario">
-                                </div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user" name="name"
                                         value="{{old('name')}}"
                                         placeholder="Nombre">
                                 </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" name="sdn"
+                                        value="{{old('sdn')}}"
+                                        placeholder="SDN">
+                                </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" name="password"
-                                        value="{{old('password')}}"
-                                        placeholder="Contraseña">
+                                    <input type="text" class="form-control form-control-user" name="work_role"
+                                        value="{{old('work_role')}}"
+                                        placeholder="Rol">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" name="password1"
-                                        value="{{old('password1')}}"
-                                        placeholder="Repetir Contraseña">
+                                    <input type="text" class="form-control form-control-user" name="work_place"
+                                        value="{{old('work_place')}}"
+                                        placeholder="Lugar">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <select class="form-control rounded-pill" name="rol">
-                                        <option value="admin">Admin</option>
-                                        <option selected value="usuario">Usuario</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <select class="form-control rounded-pill" name="authen">
-                                        <option selected value="1">Local</option>
-                                        <option value="2">LDAP</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" name="email"
-                                        value="{{old('email')}}"
-                                        placeholder="Email">
+                                    <input type="text" class="form-control form-control-user" name="RFC"
+                                        value="{{old('RFC')}}"
+                                        placeholder="RFC">
                                 </div>
                             </div>
                             

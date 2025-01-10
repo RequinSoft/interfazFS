@@ -37,8 +37,15 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('assistanceHik')}}">Asistencia</a>
-                <a class="collapse-item" href="{{route('assistanceFS')}}">FS Personas</a>
-                <a class="collapse-item" href="{{route('locations')}}">FS Locations</a>
+                
+                @if ($user->rol == 'admin' || $user->rol == 'medicos')
+                    <a class="collapse-item" href="{{route('assistanceFS')}}">FS Personas</a>
+                    <a class="collapse-item" href="{{route('locations')}}">FS Locations</a>
+                @endif
+                
+                @if ($user->rol == 'admin' || $user->rol == 'COM')
+                    <a class="collapse-item" href="{{route('cuadrilleros')}}">Cuadrillas</a>
+                @endif
             </div>
         </div>
     </li>
