@@ -28,7 +28,6 @@
                                 <th class="text-center">Lugar</th>
                                 <th class="text-center">RFC</th>
                                 <th class="text-center">SDN</th>
-                                <th class="text-center">SDN</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -41,7 +40,6 @@
                                     <td class="text-center">{{$cuadrillero->work_place}}</td>
                                     <td class="text-center">{{$cuadrillero->RFC}}</td>
                                     <td class="text-center">{{$cuadrillero->sdn}}</td>
-                                    <td class="text-center">{{$cuadrillero->asistioCuadrillero}}</td>
                                     <td class="text-center">
                                             @if ($cuadrillero->active == 1)
                                                 <a href="{{ route('editCuadrilleros', $cuadrillero->id) }}" class="btn btn-sm" title="Editar"><i class="text-500 fas fa-edit"></i></a>

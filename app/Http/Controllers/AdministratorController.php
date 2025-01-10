@@ -444,7 +444,7 @@ class AdministratorController extends Controller
         $user = Auth::user();
         $cuadrilleros = Cuadrilleros::with('asistioCuadrillero')->get();
         $contador = 1;
-return $cuadrilleros;
+        
         return view('admin.cuadrilleros.cuadrilleros', compact('cuadrilleros', 'user', 'contador'));
     }
 
