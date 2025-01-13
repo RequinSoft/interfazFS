@@ -35,8 +35,9 @@ class AdministratorController extends Controller
         $contarHik = Assistance::query()->where('date', $dia)->distinct('ID')->count();
         $contarFS = Personal::query()->whereNotIn('identifier', $system)->count();
         $asistenciaReloj = Assistance::query()->where('date', $dia)->where('exist_fs', 1)->distinct('ID')->count();
+        $cuadrilleros = Assistance::query()->where('date', $dia)->where('cuadrillero', 1)->distinct('ID')->count();
 
-        return view('admin.index', compact('ruta', 'user', 'contarHik', 'contarFS', 'asistenciaReloj'));
+        return view('admin.index', compact('ruta', 'user', 'contarHik', 'contarFS', 'asistenciaReloj', 'cuadrilleros'));
     }
 
     public function assistanceHik(){
