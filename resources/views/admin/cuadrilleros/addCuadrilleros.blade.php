@@ -54,7 +54,7 @@
                             <button type="submit" class="btn btn-primary">
                                 Guardar
                             </button>
-                            <a href="{{route('users')}}" class="btn btn-danger">
+                            <a href="{{route('cuadrilleros')}}" class="btn btn-danger">
                                 Cancelar
                             </a>
                         </form>

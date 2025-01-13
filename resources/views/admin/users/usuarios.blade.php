@@ -37,7 +37,7 @@
                                     <td class="text-center">{{ $contador }}</td>
                                     <td>{{$usuario->user}}</td>
                                     <td>{{$usuario->name}}</td>
-                                    <td class="text-center">{{$usuario->rol == 'admin' ? 'Administrador':'Usuario'}}</td>
+                                    <td class="text-center">{{$usuario->rol}}</td>
                                     <td class="text-center">{{$usuario->authen == 1 ? 'Local':'LDAP'}}</td>
                                     <td>{{$usuario->email}}</td>
                                     <td class="text-center">
