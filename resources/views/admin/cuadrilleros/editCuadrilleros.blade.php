@@ -51,6 +51,11 @@
                                         value="{{$cuadrillero->RFC}}"
                                         placeholder="RFC">
                                 </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="cel"
+                                        value="{{$cuadrillero->cel}}"
+                                        placeholder="Celular">
+                                </div>
                             </div>
                             
                             <button type="submit" class="btn btn-primary">

@@ -25,7 +25,8 @@
                                 <th class="text-center">N°</th>
                                 <th class="text-center">Nombre</th>
                                 <th class="text-center">Rol</th>
-                                <th class="text-center">Lugar</th>
+                                <th class="text-center">Área</th>
+                                <th class="text-center">Celular</th>
                                 <th class="text-center">RFC</th>
                                 <th class="text-center">SDN</th>
                                 <th class="text-center">Acciones</th>
@@ -38,6 +39,7 @@
                                     <td>{{$cuadrillero->name}}</td>
                                     <td class="text-center">{{$cuadrillero->work_role}}</td>
                                     <td class="text-center">{{$cuadrillero->work_place}}</td>
+                                    <td class="text-center">{{$cuadrillero->cel}}</td>
                                     <td class="text-center">{{$cuadrillero->RFC}}</td>
                                     <td class="text-center">{{$cuadrillero->sdn}}</td>
                                     <td class="text-center">

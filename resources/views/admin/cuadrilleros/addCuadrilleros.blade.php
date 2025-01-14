@@ -39,7 +39,7 @@
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user" name="work_place"
                                         value="{{old('work_place')}}"
-                                        placeholder="Lugar">
+                                        placeholder="Área">
                                 </div>
                             </div>
 
@@ -48,6 +48,11 @@
                                     <input type="text" class="form-control form-control-user" name="RFC"
                                         value="{{old('RFC')}}"
                                         placeholder="RFC">
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="cel"
+                                        value="{{old('cel')}}"
+                                        placeholder="Celular">
                                 </div>
                             </div>
                             

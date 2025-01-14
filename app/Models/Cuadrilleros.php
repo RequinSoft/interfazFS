@@ -15,6 +15,7 @@ class Cuadrilleros extends Model
         'work_place',
         'sdn',
         'RFC',
+        'cel',
         'active',
     ];
     

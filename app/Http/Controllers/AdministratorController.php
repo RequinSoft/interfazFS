@@ -456,7 +456,6 @@ class AdministratorController extends Controller
     }
 
     public function storageCuadrilleros(Request $request){
-        
         $validated = $request->validate(
             [
                 'name' => 'required',
@@ -479,6 +478,7 @@ class AdministratorController extends Controller
             'work_role' => $request->work_role,
             'work_place' => $request->work_place,
             'RFC' => $request->RFC,
+            'cel' => $request->cel,
             'active' => 1,
         ]);
 
@@ -518,6 +518,7 @@ class AdministratorController extends Controller
             'work_place' => $request->work_place,
             'sdn' => $request->sdn,
             'RFC' => $request->RFC,
+            'cel' => $request->cel,
             'active' => 1,
         ]);
         $cuadrillero = Cuadrilleros::find($request->id);
