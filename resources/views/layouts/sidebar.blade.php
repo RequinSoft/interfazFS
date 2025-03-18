@@ -66,6 +66,24 @@
             </div>
         </div>
     </li>
+
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDocumentation"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-user"></i>
+            <span>Documentacion</span>
+        </a>
+        <div id="collapseDocumentation" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" target='_blank' href="{{asset('documentos/reporte1.pdf')}}">Reporte 1</a>
+                <a class="collapse-item" target='_blank' href="{{asset('documentos/Locations.pdf')}}">Locations</a>
+
+            </div>
+        </div>
+
+
+    </li>
     @endif
 
 

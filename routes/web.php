@@ -54,7 +54,7 @@ Route::controller(AdministratorController::class)
             ->name('cuadrilleros');
 
         Route::get('/addCuadrilleros','addCuadrilleros')
-        ->name('addCuadrilleros');
+            ->name('addCuadrilleros');
 
         Route::post('/storageCuadrilleros','storageCuadrilleros')
             ->name('storageCuadrilleros');
